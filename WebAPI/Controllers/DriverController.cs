@@ -19,8 +19,9 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Driver>>> Get()
         {
-            if (drivers.Count == 0 ){
-                return NotFound();
+            var allDrivers = await _context.DriverInformation.ToListAsync();
+            if (allDrivers.Count == 0 ){
+                return BadRequest("No Drivers Found");
             }
             return Ok(await _context.DriverInformation.ToListAsync());
         }
